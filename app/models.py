@@ -11,12 +11,12 @@ class Districts(models.Model):
     name = models.CharField(max_length=60, unique=True)
 
 class User(AbstractUser):
-    city = models.CharField(max_length=60)
-    street = models.CharField(max_length=60)
-    zip_code = models.CharField(max_length=10)
-    phone = models.CharField(max_length=20)
+    city = models.CharField(max_length=60, null=True)
+    street = models.CharField(max_length=60, null=True)
+    zip_code = models.CharField(max_length=10, null=True)
+    phone = models.CharField(max_length=20, null=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-    district_id = models.ForeignKey(Districts, on_delete=models.CASCADE)
+    district = models.ForeignKey(Districts, on_delete=models.CASCADE, null=True)
 
 class Advertisments(models.Model):
     name = models.CharField(max_length=60)
@@ -28,6 +28,6 @@ class Advertisments(models.Model):
     zip_code = models.CharField(max_length=10, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(auto_now_add=False, null=True)
-    category_id = models.ForeignKey(Items_categories, on_delete=models.CASCADE)
-    status_id = models.ForeignKey(Statuses, on_delete=models.CASCADE)
-    district_id = models.ForeignKey(Districts, on_delete=models.CASCADE)
+    category = models.ForeignKey(Items_categories, on_delete=models.CASCADE)
+    status = models.ForeignKey(Statuses, on_delete=models.CASCADE)
+    district = models.ForeignKey(Districts, on_delete=models.CASCADE)
